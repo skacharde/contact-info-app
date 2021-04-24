@@ -31,5 +31,9 @@ Folder structure:
 
 - Need to run "npm install" to install the required packages
 
+- run > "npm install -g json-server" to install fake API point
+
+- run > "json-server --watch db.json" to start fake API point
+
 - run "ng serve -o" OR "npm start" command   
 	
