@@ -23,7 +23,7 @@ Folder structure:
     ├───assets
     └───environments
 
-# Steps to run the application 
+# Steps to run the application (need nodejs and git installed on to the machine)
 
 - Need to clone https://github.com/skacharde/contact-info-app.git on local mochine
 
