@@ -22,3 +22,14 @@ Folder structure:
     │       └───services
     ├───assets
     └───environments
+
+# Steps to run the application 
+
+- Need to clone https://github.com/skacharde/contact-info-app.git on local mochine
+
+- Navigate to the Project folder
+
+- Need to run "npm install" to install the required packages
+
+- run "ng serve -o" OR "npm start" command   
+	

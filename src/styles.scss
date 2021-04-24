@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+$bg-primary: rgb(0, 53, 66);
+
+header {
+    background-color: $bg-primary;
+    color: #ffffff;
+}
+
+.btn-dark-primary {
+    background-color: $bg-primary !important;
+    color: #ffffff !important;
+}
+
+.custom-table th {
+    background-color: $bg-primary;
+    color: #ffffff !important;
+}
+
+.hand-cursor {
+    cursor: pointer;
+}
+
+.toast-center {
+    top: 50%;
+    left: 40%;
+}
+
+.toast-success {
+    background: $bg-primary !important;
+}

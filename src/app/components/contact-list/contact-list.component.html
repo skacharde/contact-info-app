@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-lg-12">
+        <button class="btn btn-dark-primary float-right" data-toggle="modal" data-target="#contactModal"
+            (click)="isEdit=false">Add
+            Contact</button>
+    </div>
+    <div class="col-lg-12 my-2">
+        <table class="table custom-table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cd of contactList">
+                    <td>{{cd.firstName}}</td>
+                    <td>{{cd.lastName}}</td>
+                    <td>{{cd.email}}</td>
+                    <td>{{cd.phone}}</td>
+                    <td>{{cd.status?'Active':'Inactive'}}</td>
+                    <td><a data-toggle="modal" data-target="#contactModal" class="link hand-cursor"
+                            (click)="openEditContactModal(cd)">Edit</a> | <a data-toggle="modal"
+                            data-target="#deleteConfirm" class="link hand-cursor" (click)="recordDetailsToDelete=cd">Delete</a></td>
+                </tr>
+                <tr *ngIf="contactList.length==0">
+                    <td colspan="6" class="text-center">
+                        No Records
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div #contactInfoModal class="modal fade" id="contactModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{isEdit?'Update':'Add'}} Contact</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form #contactForm="ngForm" (ngSubmit)="createContact(contactForm)" novalidate>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">First Name<small class="text-danger"> *</small></label>
+                        <input type="text" class="form-control" id="fname" name="firstName" #firstName="ngModel"
+                            [(ngModel)]="contactDetails.firstName" aria-describedby="emailHelp" placeholder="First Name"
+                            required>
+
+                        <small id="emailHelp" class="form-text text-danger"
+                            *ngIf="!firstName?.valid && (firstName?.dirty || firstName?.touched)">First Name
+                            required</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Last Name<small class="text-danger"> *</small></label>
+                        <input type="text" class="form-control" id="lname" name="lastName" #lastName="ngModel"
+                            placeholder="Last Name" [(ngModel)]="contactDetails.lastName" required>
+                        <small id="emailHelp" class="form-text text-danger"
+                            *ngIf="!lastName?.valid && (lastName?.dirty || lastName?.touched)">Last Name
+                            required</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Email<small class="text-danger"> *</small></label>
+                        <input type="email" class="form-control" id="email" placeholder="Email" name="email"
+                            #email="ngModel" [(ngModel)]="contactDetails.email" required>
+                        <small id="emailHelp" class="form-text text-danger"
+                            *ngIf="!email?.valid && (email?.dirty || email?.touched)">Email required</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Phone Number<small class="text-danger"> *</small></label>
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="Phone" name="phone"
+                            #phone="ngModel" [(ngModel)]="contactDetails.phone" required>
+                        <small id="emailHelp" class="form-text text-danger"
+                            *ngIf="!phone?.valid && (phone?.dirty || phone?.touched)">Phone required</small>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="status" name="status" #status="ngModel"
+                            [(ngModel)]="contactDetails.status">
+                        <label class="form-check-label" for="status">Status</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+                    <button type="submit" class="btn btn-primary btn-dark-primary"
+                        [disabled]="!contactForm.valid">{{isEdit?'UPDATE':'ADD'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Small modal -->
+<div #deleteContactModal class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Confirm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure, you want to delete {{recordDetailsToDelete.firstName}}?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                <button type="submit" class="btn btn-primary btn-dark-primary" (click)="deleteContact()">YES</button>
+            </div>
+        </div>
+    </div>
+</div>

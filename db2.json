@@ -1,0 +1,19 @@
+{
+  "contacts": [
+    {
+      "firstName": "John123",
+      "lastName": "Smith",
+      "email": "JohnSmith@gmail.com",
+      "phone": "8877552245",
+      "status": true,
+      "id": 1
+    },
+    {
+      "firstName": "Mark",
+      "lastName": "Wood",
+      "email": "mk@gmail.com",
+      "phone": "7788554455",
+      "id": 2
+    }
+  ]
+}
