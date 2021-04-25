@@ -9,5 +9,6 @@ export  class Constants{
     public static UPDATE_TOAST_MESSAGE : string = 'Record Successfully updated';
 
     //We can add this url to enviornment.ts file as well 
-    public static BASE_URL = 'http://localhost:3000/contacts';
+    //public static BASE_URL = 'http://localhost:3000/contacts';
+    public static BASE_URL = 'https://cl-fake-server-app.herokuapp.com/contacts';
 }
