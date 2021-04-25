@@ -12,8 +12,8 @@ Folder structure:
 └───src
     ├───app
     │   ├───components
-    │   │   ├───add-contact
-    │   │   └───contact-list
+    │   │   ├───contact-list
+    │   │   └───page-not-found
     │   ├───modals
     │   └───shared
     │       ├───constants
