@@ -3,6 +3,7 @@ import { ContactInfo } from 'src/app/modals/contact-info.modal';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { Constants } from '../../shared/constants/constants'
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
@@ -58,4 +59,12 @@ export class ContactListComponent implements OnInit {
       this.getContactList();
     })
   }
+
+  clearModal(contactForm: NgForm) {
+    this.isEdit = false;
+    this.contactDetails = { id: 0 };
+    contactForm.form.markAsPristine();
+    contactForm.form.markAsUntouched();
+  }
+
 }

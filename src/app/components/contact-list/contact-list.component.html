@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
         <button class="btn btn-dark-primary float-right" data-toggle="modal" data-target="#contactModal"
-            (click)="isEdit=false">Add
+            (click)="clearModal(contactForm);">Add
             Contact</button>
     </div>
     <div class="col-lg-12 my-2">
@@ -25,7 +25,8 @@
                     <td>{{cd.status?'Active':'Inactive'}}</td>
                     <td><a data-toggle="modal" data-target="#contactModal" class="link hand-cursor"
                             (click)="openEditContactModal(cd)">Edit</a> | <a data-toggle="modal"
-                            data-target="#deleteConfirm" class="link hand-cursor" (click)="recordDetailsToDelete=cd">Delete</a></td>
+                            data-target="#deleteConfirm" class="link hand-cursor"
+                            (click)="recordDetailsToDelete=cd">Delete</a></td>
                 </tr>
                 <tr *ngIf="contactList.length==0">
                     <td colspan="6" class="text-center">
@@ -51,36 +52,52 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">First Name<small class="text-danger"> *</small></label>
+                        <label for="fname">First Name<small class="text-danger"> *</small></label>
                         <input type="text" class="form-control" id="fname" name="firstName" #firstName="ngModel"
                             [(ngModel)]="contactDetails.firstName" aria-describedby="emailHelp" placeholder="First Name"
                             required>
 
-                        <small id="emailHelp" class="form-text text-danger"
+                        <small class="form-text text-danger"
                             *ngIf="!firstName?.valid && (firstName?.dirty || firstName?.touched)">First Name
                             required</small>
+
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Last Name<small class="text-danger"> *</small></label>
+                        <label for="lname">Last Name<small class="text-danger"> *</small></label>
                         <input type="text" class="form-control" id="lname" name="lastName" #lastName="ngModel"
                             placeholder="Last Name" [(ngModel)]="contactDetails.lastName" required>
-                        <small id="emailHelp" class="form-text text-danger"
+                        <small class="form-text text-danger"
                             *ngIf="!lastName?.valid && (lastName?.dirty || lastName?.touched)">Last Name
                             required</small>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Email<small class="text-danger"> *</small></label>
+                        <label for="email">Email<small class="text-danger"> *</small></label>
                         <input type="email" class="form-control" id="email" placeholder="Email" name="email"
-                            #email="ngModel" [(ngModel)]="contactDetails.email" required>
-                        <small id="emailHelp" class="form-text text-danger"
-                            *ngIf="!email?.valid && (email?.dirty || email?.touched)">Email required</small>
+                            #emailInput="ngModel" [(ngModel)]="contactDetails.email" required
+                            email>
+                        <div class="form-text text-danger" *ngIf="!emailInput?.valid && (emailInput?.dirty || emailInput?.touched)">
+                            <small *ngIf="emailInput?.errors?.required">
+                                Email is required
+                            </small>
+                            <small *ngIf="emailInput?.errors?.email">
+                                Invalid Email Address
+                            </small>
+                        </div>
+
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Phone Number<small class="text-danger"> *</small></label>
+                        <label for="phoneNumber">Phone<small class="text-danger"> *</small></label>
                         <input type="text" class="form-control" id="phoneNumber" placeholder="Phone" name="phone"
-                            #phone="ngModel" [(ngModel)]="contactDetails.phone" required>
-                        <small id="emailHelp" class="form-text text-danger"
-                            *ngIf="!phone?.valid && (phone?.dirty || phone?.touched)">Phone required</small>
+                            #phone="ngModel" [(ngModel)]="contactDetails.phone" required pattern="^[0-9]*$">
+                        <div class="form-text text-danger"
+                            *ngIf="!phone?.valid && (phone?.dirty || phone?.touched)">
+                            <small *ngIf="phone?.errors?.required">
+                                Phone is required
+                            </small>
+                            <small *ngIf="phone?.errors?.pattern">
+                                Invalid Phone
+                            </small>
+                        </div>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="status" name="status" #status="ngModel"
@@ -99,8 +116,8 @@
 </div>
 
 <!-- Small modal -->
-<div #deleteContactModal class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div #deleteContactModal class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
