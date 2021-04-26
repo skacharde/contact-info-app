@@ -5,8 +5,6 @@ Technologies used in this application: Angular 11, Bootstrap 4, HTML and SCSS.
 
 Key Features: Single Page Application, Lazy Loading, Toastr, Responsive design
 
-**#Note** :  I have just created Add Contact component but never used because i have converted it later in modal popup
-
 Folder structure:
 ├───dist
 │   └───contact-info-app
@@ -14,8 +12,8 @@ Folder structure:
 └───src
     ├───app
     │   ├───components
-    │   │   ├───add-contact
-    │   │   └───contact-list
+    │   │   ├───contact-list
+    │   │   └───page-not-found
     │   ├───modals
     │   └───shared
     │       ├───constants
@@ -37,3 +35,6 @@ Folder structure:
 
 - run "ng serve -o" OR "npm start" command   
 	
+Repo URL: https://github.com/skacharde/contact-info-app
+
+APP Url: https://skacharde.github.io/contact-info-app/contact-list
