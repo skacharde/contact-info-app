@@ -36,7 +36,18 @@ export class ContactListComponent implements OnInit {
     this.contactDetails = Object.assign({}, data);
   }
 
-  createContact(cf: any) {
+  containsObject(obj: any, list: any) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+      if (list[i].firstName === obj.firstName && list[i].lastName === obj.lastName && list[i].phone === obj.phone) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  createContact(cf: any): void {
     if (this.isEdit) {
       this.sharedService.put(this.contactDetails.id, this.contactDetails).subscribe(data => {
         this.contactInfoModal.nativeElement.click();
@@ -44,6 +55,16 @@ export class ContactListComponent implements OnInit {
         this.getContactList();
       });
     } else {
+
+      //let exist =  this.contactList.indexOf(cf.value);
+
+      let isPresent = this.containsObject(cf.value, this.contactList);
+
+      if (isPresent) {
+        this.toastr.error(Constants.ALREADY_EXIST_TOAST_MESSAGE, Constants.ALREADY_EXIST_TOAST_TITLE);
+        return;
+      }
+
       this.sharedService.post(cf.value).subscribe(data => {
         this.contactInfoModal.nativeElement.click();
         this.toastr.success(Constants.ADD_TOAST_MESSAGE, Constants.ADD_TOAST_TITLE);
