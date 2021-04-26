@@ -37,9 +37,10 @@ export class ContactListComponent implements OnInit {
   }
 
   containsObject(obj: any, list: any) {
-    var i;
-    for (i = 0; i < list.length; i++) {
-      if (list[i].firstName === obj.firstName && list[i].lastName === obj.lastName && list[i].phone === obj.phone) {
+    debugger
+    for (let i = 0; i < list.length; i++) {
+      let isExist = list[i].firstName == obj.firstName && list[i].lastName == obj.lastName && list[i].email == obj.email && list[i].phone == obj.phone;
+      if ((isExist && !this.isEdit) || (isExist && this.isEdit && obj.id!=list[i].id)) {
         return true;
       }
     }
@@ -48,6 +49,14 @@ export class ContactListComponent implements OnInit {
   }
 
   createContact(cf: any): void {
+
+    let isPresent = this.containsObject(this.contactDetails, this.contactList);
+
+      if (isPresent) {
+        this.toastr.error(Constants.ALREADY_EXIST_TOAST_MESSAGE, Constants.ALREADY_EXIST_TOAST_TITLE);
+        return;
+      }
+
     if (this.isEdit) {
       this.sharedService.put(this.contactDetails.id, this.contactDetails).subscribe(data => {
         this.contactInfoModal.nativeElement.click();
@@ -58,12 +67,7 @@ export class ContactListComponent implements OnInit {
 
       //let exist =  this.contactList.indexOf(cf.value);
 
-      let isPresent = this.containsObject(cf.value, this.contactList);
-
-      if (isPresent) {
-        this.toastr.error(Constants.ALREADY_EXIST_TOAST_MESSAGE, Constants.ALREADY_EXIST_TOAST_TITLE);
-        return;
-      }
+      
 
       this.sharedService.post(cf.value).subscribe(data => {
         this.contactInfoModal.nativeElement.click();
